@@ -91,11 +91,7 @@ class _CadastroUsuarioScreenState extends State<CadastroUsuarioScreen> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Campo Obrigatório';
-                            }
-
-                            if (!value.endsWith('@bombeiros.mg.gov.br')) {
-                              return 'Email inválido. Use o email funcional';
-                            }
+                            }                            
                             return null;
                           },
                           decoration: InputDecoration(

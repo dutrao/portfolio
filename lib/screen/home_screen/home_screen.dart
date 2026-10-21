@@ -24,11 +24,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> itensHome = [
-     {
-      'icone': Icons.chat,
-      'nome': 'Chat',
-      'tela': HomeChatScreen(),
-    },
+    {'icone': Icons.chat, 'nome': 'Chat', 'tela': HomeChatScreen()},
     {
       'icone': Icons.people,
       'nome': 'Anúncio Efetivo',
@@ -45,11 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'tela': OcorrenciasScreen(),
     },
     {'icone': Icons.person, 'nome': 'Militares', 'tela': MilitaresScreen()},
-     {
-      'icone': Icons.fire_truck,
-      'nome': 'Viaturas',
-      'tela': ViaturasScreen(),
-    },
+    {'icone': Icons.fire_truck, 'nome': 'Viaturas', 'tela': ViaturasScreen()},
     //{'icone': Icons.chat, 'nome': 'Chat', 'tela': HomeChatScreen()},
   ];
   Militar? militarUsuario;
@@ -60,13 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Future.microtask(() async {
-      await atualizarDadosUsuario();         
-    },); 
-    
+      await atualizarDadosUsuario();
+    });
   }
 
   @override
-  Widget build(BuildContext context) {   
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       key: ValueKey(Constants.homeSingleScrollView),
       child: Column(
@@ -74,9 +65,11 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             height: 185,
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [Color(0xff9e0f20), Color(0xffe35033)])
+              gradient: LinearGradient(
+                colors: [Color(0xff9e0f20), Color(0xffe35033)],
+              ),
             ),
-            child: Row(              
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
@@ -84,26 +77,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Image.asset(
-                          'assets/brasao.png',
-                          width: 100,
-                          height: 100,
-                        ),
-                      ),
                       SizedBox(height: 10),
                       Text(
                         'Olá, ${militarUsuario?.cargo ?? '---'} ${militarUsuario?.nomeDeGuerra ?? ''}',
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
                       ),
-                      
                     ],
                   ),
-                ),Padding(
-                  padding: const EdgeInsets.fromLTRB(0,30,0,0),
-                  child: Align(alignment: AlignmentGeometry.centerLeft, child: Image.asset('assets/logo_7bbm_preto.png',width: 140, height: 140,)),
-                )
+                ),               
               ],
             ),
           ),
@@ -153,10 +138,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> atualizarDadosUsuario() async {
     militarUsuario = await context.read<Storage>().pegarDadosUsuario();
-    if(!mounted){return;}   
-    
+    if (!mounted) {
+      return;
+    }
+
     setState(() {});
-  } 
+  }
 
   Future navegarParaPerfil() async {
     await Navigator.push(

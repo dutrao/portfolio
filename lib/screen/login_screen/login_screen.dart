@@ -75,13 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Digite o email';
-                        }
-
-                        if (!value.trim().toLowerCase().endsWith(
-                          '@bombeiros.mg.gov.br',
-                        )) {
-                          return 'Verifique seu email';
-                        }
+                        }                       
 
                         return null;
                       },
