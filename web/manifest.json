@@ -1,6 +1,6 @@
 {
-    "name": "portfolio_01",
-    "short_name": "portfolio_01",
+    "name": "bombeiro_app",
+    "short_name": "bombeiro_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,0 +1,71 @@
+name: "CD Test"
+
+on:
+  push:
+    branches:
+      - temporary
+
+jobs:
+  android-deploy:
+    name: Android Test Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixa o projeto
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configura Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # 3. Configura Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.0'
+          channel: stable
+          cache: true
+
+      # 4. Baixa as dependências
+      - name: Get dependencies
+        run: flutter pub get
+
+      # 5. Cria o key.properties usado pelo build release
+      - name: Generate key.properties
+        run: |
+          cd android
+          touch key.properties
+          echo "storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}" >> key.properties
+          echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> key.properties
+          echo "keyAlias=bombeiro_app" >> key.properties
+          echo "storeFile=./keystore.jks" >> key.properties
+
+      # 6. Reconstrói o keystore a partir do GitHub Secret
+      - name: Decode keystore
+        env:
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+        run: |
+          echo "$ANDROID_KEYSTORE" | base64 -d > ./android/app/keystore.jks
+
+      # 7. Gera um Android App Bundle RELEASE
+      - name: Build App Bundle
+        run: flutter build appbundle --release
+
+      # 8. Cria o arquivo de autenticação da Google Play
+      - name: Setup Google Play credentials
+        run: |
+          echo '${{ secrets.GOOGLE_PLAY_ACCESS_KEY_JSON }}' > service_account.json
+
+      # 9. Envia para a faixa de teste interno da Play Store
+      - name: Deploy to Google Play Internal Testing
+        uses: r0adkll/upload-google-play@v1.1.5
+        with:
+          serviceAccountJson: service_account.json
+          packageName: br.com.bombeiro_app
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+          tracks: internal
+          status: completed
