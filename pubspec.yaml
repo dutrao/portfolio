@@ -88,7 +88,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
       - assets/brasao.png
-      - assets/icon_laucher.png
+      - assets/icon_launcher.png
       - assets/fundo_login.png      
       - assets/brasao_splash.png
       - assets/fundo_home.png
@@ -142,5 +142,5 @@ flutter_native_splash:
 
   android_12:
     color: "#7A0000"
-    image: assets/brasao_splash.png
+    image: assets/brasao.png
 

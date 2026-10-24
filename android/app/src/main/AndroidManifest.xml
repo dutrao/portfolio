@@ -56,7 +56,7 @@
     <!-- ========================================================= -->
 
     <application
-        android:label="BombeiroMGApp"
+        android:label="Portfolio_01"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
 

@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       scaffoldMessengerKey: scaffoldMessengerKey,
-      title: 'BombeiroMG App',
+      title: 'Portfolio_01',
       theme: ThemeData(
         cardTheme: const CardThemeData(color: Colors.white),
         searchBarTheme: const SearchBarThemeData(
